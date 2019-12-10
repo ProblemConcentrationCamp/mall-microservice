@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- status 设置log4j2自身内部的信息输出，可以不设置-->
+<!-- monitorInterval 自动检测配置的时间间隔(单位：秒), 有修改进行更新 -->
+<Configuration status="WARN" monitorInterval="60">
+
+    <Properties>
+        <!--  日志打印格式      -->
+        <Property name="LogPattern">%d{yyy-MM-dd HH:mm:ss} [%15t] %-5level %logger{50}[%L] - %msg%n</Property>
+        <Property name="ConsoleLogPattern">%d{yyy-MM-dd HH:mm:ss} %style{[%15t]}{bright,blue} %clr{%-5level} %style{%logger{50}}{cyan} %style{[%L]}{magenta} - %msg%n</Property>
+        <!--  根目录的日志级别      -->
+        <Property name="RootLogLevel">debug</Property>
+        <!--  日志文件名 -->
+        <Property name="LogFileName">mall-shop</Property>
+        <!--  文件保存路径   -->
+        <Property name="LogPath">${sys:log.path:-${java.io.tmpdir:-/tmp}}</Property>
+    </Properties>
+
+    <Appenders>
+
+        <Console name="console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <patternLayout pattern="${ConsoleLogPattern}" disableAnsi="false" noConsoleNoAnsi="false"/>
+        </Console>
+
+        <RollingFile name="dailyRollingFile" fileName="${LogPath}/${LogFileName}.log" filePattern="${LogPath}/${LogFileName}-%d{yyyy-MM-dd}-%i.log.gz">
+
+            <PatternLayout pattern="${LogPattern}" />
+
+            <Policies>
+                <!-- 0 点回滚-->
+                <TimeBasedTriggeringPolicy />
+                <!-- 日志体积超过 100M 回滚 -->
+                <SizeBasedTriggeringPolicy size="100MB"/>
+                <!-- 项目启动时, 已有的日志文件的最后修改时间, 当前时间, corn 表达式三者一起判断是否需要回滚 -->
+                <CronTriggeringPolicy schedule="0 0 0 * * ?" evaluateOnStartup="true"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <!-- 自动删除超过 30 天的日志(以最后的修改时间为准)-->
+                <Delete basePath="${LogPath}" maxDepth="2">
+                    <IfLastModified age="30d"/>
+                    <IfFileName glob="*.log.gz" />
+                </Delete>
+            </DefaultRolloverStrategy>
+
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <!--过滤掉 mybatis 的一些无用的 debug 信息-->
+        <Logger name="org.mybatis" level="info" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <!--监控系统信息-->
+        <!--若是 additivity 设为 false，则 子 logger 只会在自己的 appender 里输出，
+            而不会在 父 logger 的 appender 里输出-->
+        <Logger name="org.springframework" level="info" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <!--根配置-->
+        <Root level="${RootLogLevel}">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="dailyRollingFile"/>
+        </Root>
+    </Loggers>
+
+
+</Configuration>
