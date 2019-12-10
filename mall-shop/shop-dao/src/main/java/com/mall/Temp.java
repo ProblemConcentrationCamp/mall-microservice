@@ -2,7 +2,7 @@ package com.mall;
 
 /**
  * <pre>
- * temp class
+ * temp class that use to make the file fold not empty
  * </pre>
  *
  * @author: LCN
