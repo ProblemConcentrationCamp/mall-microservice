@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Shop Module Launcher
  * </pre>
  *
- * @author: LCN
- * @date: 2019-12-10 17:43
+ * @author LCN
+ * @date 2019-12-10 17:43
  */
 @SpringBootApplication
 public class ShopApplicationLauncher {
