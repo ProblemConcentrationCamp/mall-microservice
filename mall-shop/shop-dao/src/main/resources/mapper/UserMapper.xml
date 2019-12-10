@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mall.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.mall.dao.UserInfoDO">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id, user_name, password
+    </sql>
+
+    <insert id="insert" parameterType="com.mall.dao.UserInfoDO">
+        insert into t_user_info(user_id, user_name, password)
+        values ( #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR} )
+    </insert>
+
+    <select id="query" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_user_info
+        where user_id = #{userId}
+    </select>
+
+
+</mapper>
