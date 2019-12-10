@@ -15,6 +15,11 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>common-starter</module>
+        <module>common-kit</module>
+    </modules>
+
     <properties>
         <revision>1.0-SNAPSHOT</revision>
     </properties>

@@ -2,7 +2,7 @@ package com.mall.util;
 
 /**
  * <pre>
- * class util
+ * class com.mall.util
  * </pre>
  *
  * @author LCN
@@ -14,7 +14,7 @@ public class ClassUtil {
      * Judge whether a class is base type
      *
      * @param className object
-     * @return result
+     * @return boolean result
      */
     public static boolean isBaseType(Class className) {
         return isBaseType(className, false);
@@ -25,7 +25,7 @@ public class ClassUtil {
      *
      * @param className object
      * @param incString String is base type
-     * @return result
+     * @return boolean result
      */
     public static boolean isBaseType(Class className, boolean incString) {
 
