@@ -8,7 +8,7 @@ CRLR when you commit to github on the window)
 3. open the mall-dependencies and then run `mvn clean install`
 4. open the idea, select the `Open`, then select the path of this repository
 5. open the module, select the parent's pom, click right-hand button, select `Run as Maven Project`
-
+6. if your idea no install the lombok plugin, please install it;
 
 ## ide setting
 1. set the tab is 4 space
