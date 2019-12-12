@@ -24,5 +24,21 @@
         <revision>1.0-SNAPSHOT</revision>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.mail</groupId>
+                <artifactId>common-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.mail</groupId>
+                <artifactId>common-kit</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 
 </project>

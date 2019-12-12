@@ -24,6 +24,8 @@
 
     <properties>
         <revision>1.0-SNAPSHOT</revision>
+
+        <common-starter.version>1.0-SNAPSHOT</common-starter.version>
     </properties>
 
     <dependencyManagement>
