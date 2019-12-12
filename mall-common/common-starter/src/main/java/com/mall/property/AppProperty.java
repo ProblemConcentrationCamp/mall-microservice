@@ -16,4 +16,12 @@ public class AppProperty {
 
     @NestedConfigurationProperty
     private TransactionConfiguration transaction;
+
+    public TransactionConfiguration getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(TransactionConfiguration transaction) {
+        this.transaction = transaction;
+    }
 }

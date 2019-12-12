@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
+        <groupId>com.mall</groupId>
         <artifactId>mall-common</artifactId>
-        <groupId>com.mail</groupId>
         <version>${revision}</version>
     </parent>
 

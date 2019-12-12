@@ -13,6 +13,18 @@
     <artifactId>shop-web</artifactId>
 
     <dependencies>
+
+        <!--  Use undertow instead of Tomcat    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mall</groupId>
+            <artifactId>common-starter</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.mall</groupId>
             <artifactId>shop-core</artifactId>

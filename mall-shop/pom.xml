@@ -26,10 +26,24 @@
         <revision>1.0-SNAPSHOT</revision>
 
         <common-starter.version>1.0-SNAPSHOT</common-starter.version>
+        <common-kit.version>1.0-SNAPSHOT</common-kit.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- inner dependencies -->
+            <dependency>
+                <groupId>com.mall</groupId>
+                <artifactId>common-starter</artifactId>
+                <version>${common-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.mall</groupId>
+                <artifactId>common-kit</artifactId>
+                <version>${common-kit.version}</version>
+            </dependency>
 
             <!--  sub module -->
             <dependency>
