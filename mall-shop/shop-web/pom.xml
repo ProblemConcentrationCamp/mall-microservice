@@ -20,7 +20,7 @@
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
 
-        <dependency>
+       <dependency>
             <groupId>com.mall</groupId>
             <artifactId>common-starter</artifactId>
         </dependency>

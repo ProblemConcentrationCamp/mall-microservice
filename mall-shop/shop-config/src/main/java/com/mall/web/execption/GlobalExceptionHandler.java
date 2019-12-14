@@ -3,6 +3,7 @@ package com.mall.web.execption;
 import com.mall.util.ResponseUtil;
 import com.mall.web.annotate.advice.IgnoreResponseAdvice;
 import com.mall.web.constant.enums.RespCodeEnum;
+import com.mall.web.exception.BizException;
 import com.mall.web.response.Response;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 /**
  * <pre>
- *
+ * the global handler to handler the all exception
  * </pre>
  *
  * @author LCN
@@ -48,6 +49,12 @@ public class GlobalExceptionHandler {
                 map.put(fieldError.getField(), fieldError.getDefaultMessage());
             }
             return ResponseUtil.change2Response(map, RespCodeEnum.PARAMETER_ERROR);
+        }
+
+        // customized exception
+        if (exception instanceof BizException) {
+            BizException bizException = (BizException)exception;
+            return ResponseUtil.change2Respnse(bizException.getMessage(),RespCodeEnum.CONDITIONS_NOT_MATCHED );
         }
 
         // unknown exception

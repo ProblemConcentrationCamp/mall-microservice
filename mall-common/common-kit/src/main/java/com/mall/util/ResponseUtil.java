@@ -32,6 +32,19 @@ public class ResponseUtil {
         return response;
     }
 
+
+    /**
+     * response with the body
+     * @param data
+     * @param respCodeEnum
+     * @return
+     */
+    public static Response<Object> change2Respnse(Object data, RespCodeEnum respCodeEnum) {
+        Response<Object> response = new Response(respCodeEnum);
+        response.setBody(data);
+        return response;
+    }
+
     /**
      * success response
      * @param data
