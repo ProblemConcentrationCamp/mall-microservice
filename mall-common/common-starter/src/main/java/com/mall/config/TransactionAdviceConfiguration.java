@@ -49,6 +49,7 @@ public class TransactionAdviceConfiguration {
     @Autowired
     public TransactionAdviceConfiguration(AppProperty appProperty) {
 
+        // TODO  this config has an effect, have to test
         TransactionConfiguration transactionConfig = appProperty.getTransaction();
         if (Objects.isNull(transactionConfig.getAdvisorExpression())) {
             throw new UnsupportedOperationException("the 'lcn.transaction.advisorExpression' must be set !");
