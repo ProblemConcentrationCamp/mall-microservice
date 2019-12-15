@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+    PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="MySqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!-- cover the generated xml file -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/mall-db?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;allowPublicKeyRetrieval=true&amp;useSSL=false"
+            userId="root" password="Li*123456">
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+
+        <!-- specify the path to save the generated Bean -->
+        <javaModelGenerator targetPackage="com.mall.dao" targetProject="src\main\java"/>
+
+        <!-- specify the path to save the generated mapper.xml -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources"/>
+
+
+        <!-- specify the path to save the generated mapper interface -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mall.mapper"
+                             targetProject="src\main\java"/>
+
+
+        <!--  if you want to generate all the table, use the % replace the tableName -->
+        <table tableName="user_info" domainObjectName="UserInfoDO" mapperName="UserInfoMapper">
+            <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+    </context>
+
+
+</generatorConfiguration>

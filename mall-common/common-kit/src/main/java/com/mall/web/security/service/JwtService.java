@@ -1,4 +1,4 @@
-package com.mall.web.security;
+package com.mall.web.security.service;
 
 import com.auth0.jwt.algorithms.Algorithm;
 

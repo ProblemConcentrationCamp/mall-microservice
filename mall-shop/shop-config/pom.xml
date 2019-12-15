@@ -47,6 +47,11 @@
             <artifactId>common-kit</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.mall</groupId>
+            <artifactId>common-starter</artifactId>
+        </dependency>
+
     </dependencies>
 
 

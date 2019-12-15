@@ -1,7 +1,6 @@
 package com.mall.web.security.service;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import com.mall.web.security.JwtService;
 
 import java.security.KeyFactory;
 import java.security.interfaces.RSAPrivateKey;
