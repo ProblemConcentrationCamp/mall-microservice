@@ -18,6 +18,7 @@ CRLR when you commit to github on the window)
 ## System Environment
 1. JDK 11
 2. Mysql 8.0
+4. Maven 3.6.1
 3. SpringBoot 2.2.2.RELEASE
 4. SpringCloud Hoxton.RELEASE
 
