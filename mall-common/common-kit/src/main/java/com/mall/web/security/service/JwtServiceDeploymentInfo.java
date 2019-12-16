@@ -21,17 +21,34 @@ import java.util.Optional;
  */
 public class JwtServiceDeploymentInfo {
 
-
+    /**
+     * public key String or public key file path
+     */
     private String publicKey;
 
+    /**
+     * private key String or private key file path
+     */
     private String privateKey;
 
+    /**
+     * the way to generate algorithm
+     */
     private JwtServiceGenerateType type = JwtServiceGenerateType.STR;
 
+    /**
+     * the global issuer fot jwt server to generate jwt
+     */
     private String issuer;
 
+    /**
+     * the global subject fot jwt server to generate jwt
+     */
     private String subject;
 
+    /**
+     * the default exp time for jwt
+     */
     private long tokenExpTime;
 
     /**
