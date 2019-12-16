@@ -21,7 +21,7 @@ mybatis:
 # 2. set the lcn.transaction.enable to true
 # 3. set the lcn.advisorExpression
 # 4. the application must have data source, such as druid, HikariCP etc.
-mall:
+app:
   transaction:
     enable: true
     advisor-expression: "execution(* com.mall.service.impl..*.*(..))"

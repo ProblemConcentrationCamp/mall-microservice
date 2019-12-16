@@ -1,4 +1,6 @@
 org.springframework.context.ApplicationListener=\
 com.mall.listener.LoggingListener
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.mall.config.AppAutoConfiguration,\
 com.mall.config.TransactionAdviceConfiguration
+

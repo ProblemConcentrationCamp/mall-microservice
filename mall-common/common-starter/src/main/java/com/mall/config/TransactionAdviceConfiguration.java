@@ -30,7 +30,7 @@ import java.util.Objects;
 
 @Aspect
 @AutoConfigureAfter(DataSourceTransactionManager.class)
-@ConditionalOnProperty(value = "lcn.transaction.enable", havingValue = "true")
+@ConditionalOnProperty(value = "app.transaction.enable", havingValue = "true")
 public class TransactionAdviceConfiguration {
 
     @Resource
@@ -49,7 +49,6 @@ public class TransactionAdviceConfiguration {
     @Autowired
     public TransactionAdviceConfiguration(AppProperty appProperty) {
 
-        // TODO  this config has an effect, have to test
         TransactionConfiguration transactionConfig = appProperty.getTransaction();
         if (Objects.isNull(transactionConfig.getAdvisorExpression())) {
             throw new UnsupportedOperationException("the 'lcn.transaction.advisorExpression' must be set !");
