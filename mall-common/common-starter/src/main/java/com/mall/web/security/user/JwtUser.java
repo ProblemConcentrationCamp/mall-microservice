@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * <pre>
- *
+ * Jwt User
  * </pre>
  *
  * @author LCN
@@ -36,7 +36,6 @@ public class JwtUser implements UserDetails {
         this.lastPasswordResetDate = lastPasswordResetDate;
         this.authorities = authorities;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

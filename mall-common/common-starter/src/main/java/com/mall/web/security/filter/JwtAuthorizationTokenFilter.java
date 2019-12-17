@@ -40,7 +40,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
     /**
      * the mark in the http header
      */
-    @Value("${jwt.header}")
+    @Value("${app.security.jwtHttpHeader}")
     private String httpHeaderMark;
 
 

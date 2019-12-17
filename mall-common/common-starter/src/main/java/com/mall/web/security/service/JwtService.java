@@ -6,7 +6,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.Verification;
 import com.mall.util.CollectionMapUtil;
 import com.mall.web.security.payload.JwtPayload;
 
@@ -57,9 +56,10 @@ public class JwtService {
      * builder the verifier
      */
     public JwtService build() {
-        Verification verification = JWT.require(algorithm);
-        Optional.ofNullable(issuer).ifPresent(verification::withIssuer);
-        this.verifier = verification.build();
+        this.verifier = JWT.require(algorithm)
+            .withIssuer(issuer)
+            .withSubject(subject)
+            .build();
         return this;
     }
 
