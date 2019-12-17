@@ -14,12 +14,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsUtils;
 
 import javax.annotation.Resource;
@@ -43,6 +45,8 @@ import java.util.Base64;
 @ConditionalOnProperty(value = "app.security.enable", havingValue = "true")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final static String URL_SEPARATOR = ",";
+
     @Resource
     private UserDetailsService userDetailsService;
 
@@ -56,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public SecurityConfiguration(AppProperty appProperty) {
-        SecurityConfigurationProperty securityProperty = appProperty.getSecurity();
+        this.securityProperty = appProperty.getSecurity();
     }
 
     @Autowired
@@ -70,32 +74,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         // base jwt, csrf no need
-        httpSecurity.csrf().disable()
-            // 认证失败的处理器
-            // the handler to solve token authenticated fail
-            .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
-            // base token , session is not need
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests()
-            // request of preflight can access straight
-            .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-            // the url under matchers can access the service login without cross the filter
-            .antMatchers(
-                "/open/**"
-            ).permitAll()
-            // 其他的请求都需要验证
-            // other request must authenticated
-            .anyRequest().authenticated();
+        httpSecurity.csrf().disable();
+
+        // the handler to solve token authenticated fail
+        httpSecurity.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and();
+
+        //base token , session is not need
+        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
+
+        // request of preflight can access straight
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expressionInterceptUrlRegistry =
+            httpSecurity.authorizeRequests().requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
+
+        // the url under matchers can access the service login without cross the filter
+        String matcherString = securityProperty.getAntMatchers();
+        if (!StringUtils.isEmpty(matcherString)) {
+            String[] matchers = matcherString.split(URL_SEPARATOR);
+            expressionInterceptUrlRegistry = expressionInterceptUrlRegistry.antMatchers(matchers).permitAll();
+        }
+
+        // other request must authenticated
+        expressionInterceptUrlRegistry.anyRequest().authenticated();
 
         // before access the service logic, must can cross the filter
-        httpSecurity.addFilterBefore(authenticationTokenFilterBean(),
-            UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
         // Disable Caching
         httpSecurity.headers().cacheControl();
     }
-
-
 
     /**
      * password encoder
@@ -116,7 +122,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        return authenticationManagerBean();
+        return super.authenticationManagerBean();
     }
 
     /**
