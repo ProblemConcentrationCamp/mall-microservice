@@ -1,7 +1,7 @@
 package com.mall.config;
 
 import com.mall.property.AppProperty;
-import com.mall.property.TransactionConfiguration;
+import com.mall.property.nest.TransactionProperty;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
@@ -21,7 +21,7 @@ import java.util.Objects;
 
 /**
  * <pre>
- *
+ *  transaction config
  * </pre>
  *
  * @author LCN
@@ -49,7 +49,7 @@ public class TransactionAdviceConfiguration {
     @Autowired
     public TransactionAdviceConfiguration(AppProperty appProperty) {
 
-        TransactionConfiguration transactionConfig = appProperty.getTransaction();
+        TransactionProperty transactionConfig = appProperty.getTransaction();
         if (Objects.isNull(transactionConfig.getAdvisorExpression())) {
             throw new UnsupportedOperationException("the 'lcn.transaction.advisorExpression' must be set !");
         }

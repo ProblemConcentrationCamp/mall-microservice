@@ -1,5 +1,7 @@
 package com.mall.property;
 
+import com.mall.property.nest.JwtConfigurationProperty;
+import com.mall.property.nest.TransactionProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -15,13 +17,24 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 public class AppProperty {
 
     @NestedConfigurationProperty
-    private TransactionConfiguration transaction;
+    private TransactionProperty transaction;
 
-    public TransactionConfiguration getTransaction() {
+    @NestedConfigurationProperty
+    private JwtConfigurationProperty jwt;
+
+    public TransactionProperty getTransaction() {
         return transaction;
     }
 
-    public void setTransaction(TransactionConfiguration transaction) {
+    public void setTransaction(TransactionProperty transaction) {
         this.transaction = transaction;
+    }
+
+    public JwtConfigurationProperty getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(JwtConfigurationProperty jwt) {
+        this.jwt = jwt;
     }
 }

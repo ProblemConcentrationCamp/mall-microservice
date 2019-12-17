@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mall.mapper.UserInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.mall.dao.UserInfoDO">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="e_mail" jdbcType="VARCHAR" property="eMail"/>
+        <result column="head_portraits" jdbcType="VARCHAR" property="headPortraits"/>
+        <result column="introduce" jdbcType="VARCHAR" property="introduce"/>
+        <result column="sex" jdbcType="BIT" property="sex"/>
+        <result column="last_login_date" jdbcType="TIMESTAMP" property="lastLoginDate"/>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="last_password_reset_date" jdbcType="TIMESTAMP" property="lastPasswordResetDate"/>
+        <result column="registration_date" jdbcType="TIMESTAMP" property="registrationDate"/>
+        <result column="enable" jdbcType="BIT" property="enable"/>
+        <result column="locked" jdbcType="BIT" property="locked"/>
+    </resultMap>
+
+
+    <resultMap id="UserRoleResultMap" type="com.mall.dao.UserInfoDO" extends="BaseResultMap">
+        <collection property="roleSet" ofType="com.mall.dao.RoleInfoDO">
+            <id 	column="role_id" jdbcType="INTEGER" property="roleId" />
+            <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+            <result column="role_name_zh" jdbcType="VARCHAR" property="roleNameZh"/>
+        </collection>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from u_user_info
+        where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.mall.dao.UserInfoDO">
+        <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into u_user_info (user_name, password, e_mail,
+        head_portraits, introduce, sex,
+        last_login_date, birthday, last_password_reset_date,
+        registration_date, enable, locked
+        )
+        values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{eMail,jdbcType=VARCHAR},
+        #{headPortraits,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, #{sex,jdbcType=BIT},
+        #{lastLoginDate,jdbcType=TIMESTAMP}, #{birthday,jdbcType=TIMESTAMP},
+        #{lastPasswordResetDate,jdbcType=TIMESTAMP},
+        #{registrationDate,jdbcType=TIMESTAMP}, #{enable,jdbcType=BIT}, #{locked,jdbcType=BIT}
+        )
+    </insert>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.mall.dao.UserInfoDO">
+        update u_user_info
+        set user_name = #{userName,jdbcType=VARCHAR},
+          password = #{password,jdbcType=VARCHAR},
+          e_mail = #{eMail,jdbcType=VARCHAR},
+          head_portraits = #{headPortraits,jdbcType=VARCHAR},
+          introduce = #{introduce,jdbcType=VARCHAR},
+          sex = #{sex,jdbcType=BIT},
+          last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+          birthday = #{birthday,jdbcType=TIMESTAMP},
+          last_password_reset_date = #{lastPasswordResetDate,jdbcType=TIMESTAMP},
+          registration_date = #{registrationDate,jdbcType=TIMESTAMP},
+          enable = #{enable,jdbcType=BIT},
+          locked = #{locked,jdbcType=BIT}
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select user_id, user_name, password, e_mail, head_portraits, introduce, sex, last_login_date,
+        birthday, last_password_reset_date, registration_date, enable, locked
+        from u_user_info
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select user_id, user_name, password, e_mail, head_portraits, introduce, sex, last_login_date,
+        birthday, last_password_reset_date, registration_date, enable, locked
+        from u_user_info
+    </select>
+
+    <!-- select user info and user role by user name -->
+    <select id="selectAllUserInfoByUserName" resultMap="UserRoleResultMap" parameterType="java.lang.String">
+        select u.*, r.* from u_user_info u, u_role_info r
+        WHERE u.user_name = #{userName, jdbcType=VARCHAR}
+        AND r.role_id in (
+            SELECT ru.role_id FROM u_user_role ru WHERE ru.user_id = (
+                SELECT u.user_id FROM u_user_info u WHERE u.user_name = #{userName, jdbcType=VARCHAR}
+            )
+        )
+    </select>
+
+</mapper>

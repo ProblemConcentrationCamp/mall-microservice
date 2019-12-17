@@ -17,7 +17,6 @@ import javax.annotation.Resource;
  * @author: LCN
  * @date: 2019-11-14 14:18
  */
-
 @Slf4j
 @RestController
 public class UserInfoController {

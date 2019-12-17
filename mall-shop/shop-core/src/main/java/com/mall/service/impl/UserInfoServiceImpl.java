@@ -2,7 +2,7 @@ package com.mall.service.impl;
 
 
 import com.mall.dao.UserInfoDO;
-import com.mall.mapper.UserMapper;
+import com.mall.mapper.UserInfoMapper;
 import com.mall.service.UserInfoService;
 import com.mall.vo.UserInfoVO;
 import lombok.extern.slf4j.Slf4j;
@@ -24,22 +24,22 @@ import javax.annotation.Resource;
 public class UserInfoServiceImpl implements UserInfoService {
 
     @Resource
-    private UserMapper userMapper;
+    private UserInfoMapper userInfoMapper;
 
     @Override
     public int insert(UserInfoVO record) {
+
         UserInfoDO userInfoDO = new UserInfoDO();
         BeanUtils.copyProperties(record, userInfoDO);
-        userMapper.insert(userInfoDO);
-        return 1;
+        return userInfoMapper.insert(userInfoDO);
     }
 
     @Override
     public UserInfoVO query(Integer userId) {
 
-        UserInfoDO userPO = userMapper.query(userId);
-        UserInfoVO userInfoBO = new UserInfoVO();
-        BeanUtils.copyProperties(userPO, userInfoBO);
-        return userInfoBO;
+        UserInfoDO userInfoDO = userInfoMapper.selectByPrimaryKey(userId);
+        UserInfoVO userInfoVO = new UserInfoVO();
+        BeanUtils.copyProperties(userInfoDO, userInfoVO);
+        return userInfoVO;
     }
 }

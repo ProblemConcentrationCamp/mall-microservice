@@ -31,16 +31,20 @@
         <!-- specify the path to save the generated mapper.xml -->
         <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources"/>
 
-
         <!-- specify the path to save the generated mapper interface -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mall.mapper"
-                             targetProject="src\main\java"/>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mall.mapper" targetProject="src\main\java"/>
 
 
         <!--  if you want to generate all the table, use the % replace the tableName -->
-        <table tableName="user_info" domainObjectName="UserInfoDO" mapperName="UserInfoMapper">
+      <!--  <table tableName="u_user_info" domainObjectName="UserInfoDO" mapperName="UserInfoMapper">
             <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
+        </table>-->
+
+        <table tableName="u_role_info" domainObjectName="RoleInfoDO" mapperName="RoleInfoMapper">
+            <generatedKey column="role_id" sqlStatement="MySql" identity="true"/>
         </table>
+
+
 
     </context>
 

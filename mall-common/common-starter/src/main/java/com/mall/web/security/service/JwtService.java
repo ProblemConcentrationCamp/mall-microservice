@@ -96,6 +96,39 @@ public class JwtService {
     }
 
     /**
+     * Verify that the token is useful
+     * @param token
+     * @param userName
+     * @return
+     */
+    public boolean validateToken(String token, String userName) {
+        DecodedJWT jwt = verifier.verify(token);
+        List<String> audiences = jwt.getAudience();
+        String audienceName = CollectionMapUtil.isNotEmpty(audiences) ? "" : audiences.get(0);
+        if (!audienceName.equals(userName)) {
+            // userName inconformity
+            return false;
+        }
+        Date expiredDate = jwt.getExpiresAt();
+        return expiredDate.before(new Date());
+    }
+
+    /**
+     * get username from token
+     * @param token
+     * @return
+     */
+    public String getAudienceFromToken(String token) {
+        DecodedJWT jwt = verifier.verify(token);
+        List<String> audiences = jwt.getAudience();
+        if (CollectionMapUtil.isEmpty(audiences)) {
+            return "";
+        }
+        // get first
+        return audiences.get(0);
+    }
+
+    /**
      * get all the customized param
      * @param token
      * @return
@@ -135,21 +168,6 @@ public class JwtService {
     private Date getExpiredDateFromToken(String token) {
         DecodedJWT jwt = verifier.verify(token);
         return jwt.getExpiresAt();
-    }
-
-    /**
-     * get username from token
-     * @param token
-     * @return
-     */
-    private String getAudienceFromToken(String token) {
-        DecodedJWT jwt = verifier.verify(token);
-        List<String> audiences = jwt.getAudience();
-        if (CollectionMapUtil.isEmpty(audiences)) {
-            return "";
-        }
-        // get first
-        return audiences.get(0);
     }
 
     /**

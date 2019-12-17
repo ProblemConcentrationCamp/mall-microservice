@@ -1,33 +1,44 @@
 package com.mall.dao;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+import java.util.Set;
+
+@Data
+@NoArgsConstructor
 public class UserInfoDO {
+
     private Integer userId;
 
     private String userName;
 
     private String password;
 
-    public Integer getUserId() {
-        return userId;
-    }
+    private String eMail;
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+    private String headPortraits;
 
-    public String getUserName() {
-        return userName;
-    }
+    private String introduce;
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    private Boolean sex;
 
-    public String getPassword() {
-        return password;
-    }
+    private Date lastLoginDate;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private Date birthday;
+
+    private Date lastPasswordResetDate;
+
+    private Date registrationDate;
+
+    private Boolean enable;
+
+    private Boolean locked;
+
+    /**
+     * the user have the roles
+     */
+    private Set<RoleInfoDO> roleSet;
+
 }

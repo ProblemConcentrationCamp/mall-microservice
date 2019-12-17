@@ -21,6 +21,11 @@ public enum RespCodeEnum {
     PARAMETER_ERROR(400, "args in request verify fail"),
 
     /**
+     * the user don't have the permission
+     */
+    UNAUTHORIZED(401, "no permission"),
+
+    /**
      * the args can't matches the condition of handler business
      */
     CONDITIONS_NOT_MATCHED(412, "the args not matches the condition"),

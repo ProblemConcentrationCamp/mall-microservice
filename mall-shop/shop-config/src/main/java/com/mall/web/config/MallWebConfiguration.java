@@ -1,6 +1,5 @@
 package com.mall.web.config;
 
-import com.mall.web.undertow.UndertowConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -13,10 +12,4 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MallWebConfiguration {
-
-   // @Bean
-    public UndertowConfig getUndertowConfig() {
-        // TODO
-        return new UndertowConfig();
-    }
 }

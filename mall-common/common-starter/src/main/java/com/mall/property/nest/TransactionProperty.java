@@ -1,4 +1,4 @@
-package com.mall.property;
+package com.mall.property.nest;
 
 import org.springframework.transaction.TransactionDefinition;
 
@@ -10,7 +10,7 @@ import org.springframework.transaction.TransactionDefinition;
  * @author LCN
  * @date 2019-12-10 22:16
  */
-public class TransactionConfiguration {
+public class TransactionProperty {
 
     /**
      * whether need open transaction
