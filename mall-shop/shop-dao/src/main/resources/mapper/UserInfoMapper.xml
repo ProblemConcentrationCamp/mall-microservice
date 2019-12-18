@@ -82,6 +82,10 @@
         from u_user_info
     </select>
 
+    <select id="selectUserInfoWithPage" resultMap="BaseResultMap">
+        select * from u_user_info
+    </select>
+
     <!-- select user info and user role by user name -->
     <select id="selectAllUserInfoByUserName" resultMap="UserRoleResultMap" parameterType="java.lang.String">
         select u.*, r.* from u_user_info u, u_role_info r

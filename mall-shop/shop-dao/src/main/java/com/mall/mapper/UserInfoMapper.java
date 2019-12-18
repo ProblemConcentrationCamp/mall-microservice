@@ -1,6 +1,8 @@
 package com.mall.mapper;
 
+import com.github.pagehelper.Page;
 import com.mall.dao.UserInfoDO;
+
 import java.util.List;
 
 public interface UserInfoMapper {
@@ -38,6 +40,12 @@ public interface UserInfoMapper {
      * @return
      */
     int updateByPrimaryKey(UserInfoDO record);
+
+    /**
+     * query userInfo and wrap with page
+     * @return
+     */
+    Page<UserInfoDO> selectUserInfoWithPage();
 
     /**
      * query all user info and user's role by user name
