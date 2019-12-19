@@ -9,11 +9,21 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 连接池
     type: com.alibaba.druid.pool.DruidDataSource
-    validationQuery: select 1 from dual
+    druid:
+      validationQuery: select 1 from dual
 
 # myBatis
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
+
+pagehelper:
+  # 数据库方言
+  auto-dialect: mysql
+  # 判断合理性比如负数和超过最大总数
+  reasonable: true
+  # 支持方法参数
+  support-methods-arguments: true
+  params: count=countSql
 
 
 # if the application need to open transaction

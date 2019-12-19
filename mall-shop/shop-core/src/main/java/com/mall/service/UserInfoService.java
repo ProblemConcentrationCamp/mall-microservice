@@ -1,6 +1,7 @@
 package com.mall.service;
 
 
+import com.github.pagehelper.Page;
 import com.mall.vo.UserInfoVO;
 
 /**
@@ -26,4 +27,10 @@ public interface UserInfoService {
      * @return
      */
     UserInfoVO query(Integer userId);
+
+    /**
+     * 分页查询用户
+     * @return
+     */
+    Page<UserInfoVO> getUsers(int pageNum, int pageSize);
 }

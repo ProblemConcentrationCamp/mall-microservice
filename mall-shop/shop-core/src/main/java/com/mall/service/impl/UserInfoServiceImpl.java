@@ -1,6 +1,8 @@
 package com.mall.service.impl;
 
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.mall.dao.UserInfoDO;
 import com.mall.mapper.UserInfoMapper;
 import com.mall.service.UserInfoService;
@@ -41,5 +43,16 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfoVO userInfoVO = new UserInfoVO();
         BeanUtils.copyProperties(userInfoDO, userInfoVO);
         return userInfoVO;
+    }
+
+    @Override
+    public Page<UserInfoVO> getUsers(int pageNum, int pageSize) {
+
+        PageHelper.startPage(pageNum, pageSize);
+        Page<UserInfoDO> userInfoDOPage = userInfoMapper.selectUserInfoWithPage();
+
+        Page<UserInfoVO> userInfoVOPage = new Page<>();
+        BeanUtils.copyProperties(userInfoDOPage, userInfoVOPage);
+        return userInfoVOPage;
     }
 }
