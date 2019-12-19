@@ -25,3 +25,7 @@ app:
   transaction:
     enable: true
     advisor-expression: "execution(* com.mall.service.impl..*.*(..))"
+  security:
+    enable: true
+    ant-matchers: "/test"
+

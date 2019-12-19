@@ -41,4 +41,9 @@ public class UserInfoController {
         log.info("返回参数 ----> {}", JSONObject.toJSONString(userVO));
         return userVO;
     }
+
+    @GetMapping("/test")
+    public String query() {
+        return "query";
+    }
 }

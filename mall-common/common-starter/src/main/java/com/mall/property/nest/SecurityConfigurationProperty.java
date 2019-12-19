@@ -121,4 +121,12 @@ public class SecurityConfigurationProperty {
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
+
+    public String getJwtHttpHeader() {
+        return jwtHttpHeader;
+    }
+
+    public void setJwtHttpHeader(String jwtHttpHeader) {
+        this.jwtHttpHeader = jwtHttpHeader;
+    }
 }

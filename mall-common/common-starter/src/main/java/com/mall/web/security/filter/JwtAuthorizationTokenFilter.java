@@ -1,9 +1,9 @@
 package com.mall.web.security.filter;
 
+import com.mall.property.nest.SecurityConfigurationProperty;
 import com.mall.web.security.service.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,9 +40,12 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
     /**
      * the mark in the http header
      */
-    @Value("${app.security.jwtHttpHeader}")
     private String httpHeaderMark;
 
+
+    public JwtAuthorizationTokenFilter(SecurityConfigurationProperty property) {
+        this.httpHeaderMark = property.getJwtHttpHeader();
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
