@@ -21,9 +21,14 @@ public enum RespCodeEnum {
     PARAMETER_ERROR(400, "args in request verify fail"),
 
     /**
+     * the user is logout or the token expired
+     */
+    UNAUTHORIZED(401, "unauthorized"),
+
+    /**
      * the user don't have the permission
      */
-    UNAUTHORIZED(401, "no permission"),
+    NO_PERMISSION(403, "no permission"),
 
     /**
      * the args can't matches the condition of handler business

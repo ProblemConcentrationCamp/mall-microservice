@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * <pre>
  * the class defined to solve:
- * when user request a protected url, but the user don't have permission
+ * when user request a protected url, but the user is logout or the token expired
  * how to do
  * </pre>
  *
@@ -24,7 +24,8 @@ import java.io.IOException;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException{
+    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+                         AuthenticationException e) throws IOException{
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json");
         Response<Object> objectResponse = ResponseUtil.change2Respnse(RespCodeEnum.UNAUTHORIZED);

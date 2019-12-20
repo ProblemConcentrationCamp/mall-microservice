@@ -3,6 +3,7 @@ package com.mall.config;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.mall.property.AppProperty;
 import com.mall.property.nest.SecurityConfigurationProperty;
+import com.mall.web.security.auth.JwtAccessDeniedHandler;
 import com.mall.web.security.auth.JwtAuthenticationEntryPoint;
 import com.mall.web.security.filter.JwtAuthorizationTokenFilter;
 import com.mall.web.security.service.JwtService;
@@ -20,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsUtils;
@@ -50,8 +52,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Resource
     private UserDetailsService userDetailsService;
 
-    @Autowired
+    @Resource
     private AuthenticationEntryPoint authenticationEntryPoint;
+
+    @Resource
+    private AccessDeniedHandler accessDeniedHandler;
 
     /**
      * security config
@@ -77,7 +82,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable();
 
         // the handler to solve token authenticated fail
-        httpSecurity.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and();
+        httpSecurity.exceptionHandling()
+            .accessDeniedHandler(accessDeniedHandler)
+            .authenticationEntryPoint(authenticationEntryPoint).and();
 
         //base token , session is not need
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
@@ -126,13 +133,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * authentication fail handler
+     * unauthorized handler
      *
      * @return
      */
     @Bean
     public AuthenticationEntryPoint createAuthenticationEntryPoint() {
         return new JwtAuthenticationEntryPoint();
+    }
+
+    /**
+     * no permission handler
+     * @return
+     */
+    @Bean
+    public AccessDeniedHandler createAccessDeniedHandler() {
+        return new JwtAccessDeniedHandler();
     }
 
     /**
