@@ -8,6 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <pre>
@@ -42,8 +44,23 @@ public class UserInfoController {
         return userVO;
     }
 
-    @GetMapping("/test")
+    @GetMapping("/test/123")
     public String query() {
-        return "query";
+        String d = "query";
+        return d;
+    }
+
+    @GetMapping("/test/12")
+    public UserInfoVO tt() {
+        UserInfoVO userVO = new UserInfoVO();
+        userVO.setPassword("123");
+        return userVO;
+    }
+
+    @GetMapping("/aba/14")
+    public Map<String, String> ttsss() {
+       Map<String, String> map = new HashMap<>();
+       map.put("key", "1232");
+        return map;
     }
 }

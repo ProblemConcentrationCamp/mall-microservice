@@ -2,6 +2,8 @@ package com.mall.web.response;
 
 import com.mall.web.constant.enums.RespCodeEnum;
 
+import java.io.Serializable;
+
 /**
  * <pre>
  *
@@ -10,7 +12,7 @@ import com.mall.web.constant.enums.RespCodeEnum;
  * @author LCN
  * @date 2019-11-28 14:52
  */
-public class Response<T> {
+public class Response<T> implements Serializable {
 
     private int code;
 

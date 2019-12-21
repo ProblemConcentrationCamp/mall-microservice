@@ -52,7 +52,7 @@ public class ResponseUtil {
      */
     public static Response<Object> change2Response(Object data) {
         Response<Object> response = new Response<>();
-        return responseBodyHandler(response,data);
+        return responseBodyHandler(response, data);
     }
 
     /**
@@ -88,7 +88,7 @@ public class ResponseUtil {
         if (Objects.isNull(data)) {
             return response;
         }
-        if (ClassUtil.isBaseType(data.getClass())) {
+        if (ClassUtil.isBaseType(data.getClass(), true)) {
             Map<String, Object> map = new HashMap<>(2);
             map.put(DEFAULT_RESPONSE_STRING, data);
             response.setBody(map);

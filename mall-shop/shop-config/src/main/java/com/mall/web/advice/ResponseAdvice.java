@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
@@ -20,7 +19,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author LCN
  * @date 2019-12-12 22:57
  */
-@RestControllerAdvice
+@Deprecated
+//@RestControllerAdvice
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
@@ -42,6 +42,8 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         if (responseDate instanceof Response) {
             return responseDate;
         }
-        return ResponseUtil.change2Response(responseDate);
+        Response<Object> objectResponse = new Response<>();
+         objectResponse.setBody(responseDate);
+         return objectResponse;
     }
 }

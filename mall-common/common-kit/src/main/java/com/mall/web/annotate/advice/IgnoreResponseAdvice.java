@@ -14,6 +14,7 @@ import java.lang.annotation.Target;
  * @author LCN
  * @date 2019-12-12 22:51
  */
+@Deprecated
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IgnoreResponseAdvice {

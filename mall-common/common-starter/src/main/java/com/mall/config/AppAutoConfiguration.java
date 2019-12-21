@@ -13,8 +13,8 @@ import javax.annotation.Resource;
  * @author LCN
  * @date 2019-12-10 22:18
  */
-@EnableConfigurationProperties(AppProperty.class)
-public class AppAutoConfiguration {
+@EnableConfigurationProperties({AppProperty.class})
+public class AppAutoConfiguration{
 
     @Resource
     private AppProperty appProperty;

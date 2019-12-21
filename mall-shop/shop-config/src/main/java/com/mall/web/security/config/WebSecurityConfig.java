@@ -1,6 +1,6 @@
 package com.mall.web.security.config;
 
-import com.mall.web.security.auth.JwtAuthenticationEntryPoint;
+import com.mall.web.security.auth .JwtAuthenticationEntryPoint;
 import com.mall.web.security.filter.JwtAuthorizationTokenFilter;
 import com.mall.web.security.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;

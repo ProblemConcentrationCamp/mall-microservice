@@ -1,7 +1,6 @@
 package com.mall.web.execption;
 
 import com.mall.util.ResponseUtil;
-import com.mall.web.annotate.advice.IgnoreResponseAdvice;
 import com.mall.web.constant.enums.RespCodeEnum;
 import com.mall.web.exception.BizException;
 import com.mall.web.response.Response;
@@ -30,7 +29,6 @@ import java.util.Map;
 @ResponseBody
 @ControllerAdvice
 @NoArgsConstructor
-@IgnoreResponseAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({Exception.class})

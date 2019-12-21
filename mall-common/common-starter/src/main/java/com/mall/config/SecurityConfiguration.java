@@ -3,6 +3,7 @@ package com.mall.config;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.mall.property.AppProperty;
 import com.mall.property.nest.SecurityConfigurationProperty;
+import com.mall.util.StringUtil;
 import com.mall.web.security.auth.JwtAccessDeniedHandler;
 import com.mall.web.security.auth.JwtAuthenticationEntryPoint;
 import com.mall.web.security.filter.JwtAuthorizationTokenFilter;
@@ -23,7 +24,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsUtils;
 
 import javax.annotation.Resource;
@@ -95,8 +95,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // the url under matchers can access the service login without cross the filter
         String matcherString = securityProperty.getAntMatchers();
-        if (!StringUtils.isEmpty(matcherString)) {
-            String[] matchers = matcherString.split(URL_SEPARATOR);
+        if (StringUtil.isNotBlack(matcherString)) {
+            String[] matchers = StringUtil.trimAllWhitespace(matcherString).split(URL_SEPARATOR);
             expressionInterceptUrlRegistry = expressionInterceptUrlRegistry.antMatchers(matchers).permitAll();
         }
 
