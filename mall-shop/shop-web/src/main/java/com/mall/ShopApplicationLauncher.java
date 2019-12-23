@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ShopApplicationLauncher {
 
     public static void main(String[] args) {
+        // jdk11 : --add-opens java.base/jdk.internal.misc=ALL-UNNAMED -Dio.netty.tryReflectionSetAccessible=true
         SpringApplication.run(ShopApplicationLauncher.class, args);
     }
 }

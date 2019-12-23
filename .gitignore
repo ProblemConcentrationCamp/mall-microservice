@@ -6,3 +6,6 @@
 ## maven
 target/
 .flattened-pom.xml
+
+## sensitive documents
+mall-shop/shop-web/src/main/resources/application-dev.yml
