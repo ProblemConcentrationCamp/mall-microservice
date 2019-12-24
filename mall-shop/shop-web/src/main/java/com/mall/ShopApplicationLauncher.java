@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * <pre>
- * Shop Module Launcher  TODO
+ * Shop Module Launcher
  * </pre>
  *
  * @author LCN
