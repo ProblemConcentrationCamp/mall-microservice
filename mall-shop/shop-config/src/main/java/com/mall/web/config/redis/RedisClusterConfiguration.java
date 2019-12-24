@@ -92,6 +92,7 @@ public class RedisClusterConfiguration{
 
         // value's serializer is fastJson2JsonRedisSerializer
         redisTemplate.setValueSerializer(fastJson2JsonRedisSerializer);
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
 
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
