@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mall.web.config.redis.serializer.FastJson2JsonRedisSerializer;
+import com.mall.web.config.redis.util.RedisUtil;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
@@ -96,5 +97,10 @@ public class RedisClusterConfiguration{
 
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
+    }
+
+    @Bean
+    public RedisUtil createRedisUtil() {
+        return new RedisUtil();
     }
 }
