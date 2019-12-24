@@ -31,6 +31,6 @@ app:
     advisor-expression: "execution(* com.mall.service.impl..*.*(..))"
   security:
     enable: true
-    ant-matchers: "/test/**, /adb/**"
+    ant-matchers: "/test/**, /adb/**, /**"
 
 

@@ -27,6 +27,12 @@ public class UserInfoController {
     @Resource
     private UserInfoService userInfoService;
 
+    @PostMapping("/register")
+    public Response<UserInfoDO> register(@Validated({CommonCreate.class}) @RequestBody UserInfoRequest record) {
+
+        return null;
+    }
+
     @PostMapping("/insert")
     public Response<UserInfoDO> insert(@Validated({CommonCreate.class}) @RequestBody UserInfoRequest record) {
 
