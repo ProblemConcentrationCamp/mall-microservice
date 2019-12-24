@@ -1,4 +1,4 @@
-package com.mall.request;
+package com.mall.request.api;
 
 /**
  * <pre>

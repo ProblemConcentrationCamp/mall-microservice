@@ -1,15 +1,16 @@
 package com.mall.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mall.dao.UserInfoDO;
+import com.mall.request.system.UserInfoRequest;
 import com.mall.service.UserInfoService;
-import com.mall.vo.UserInfoVO;
+import com.mall.web.response.Response;
+import com.mall.web.validation.CommonCreate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <pre>
@@ -27,40 +28,25 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @PostMapping("/insert")
-    public int insert(@Validated({UserInfoVO.TestGroup.class}) @RequestBody UserInfoVO record) {
+    public Response<UserInfoDO> insert(@Validated({CommonCreate.class}) @RequestBody UserInfoRequest record) {
 
         log.info("请求参数 ----> {}", JSONObject.toJSONString(record));
-        int id = userInfoService.insert(record);
-        log.info("返回参数----> {}", id);
-        return id;
+        Response<UserInfoDO> response = userInfoService.insert(record);
+        log.info("返回参数----> {}", JSONObject.toJSONString(response));
+        return response;
     }
 
     @GetMapping("/query/{userId}")
-    public UserInfoVO query(@PathVariable("userId")Integer userId) {
+    public Response<UserInfoDO> query(@PathVariable("userId")Integer userId) {
 
         log.info("请求参数----> {}", userId);
-        UserInfoVO userVO = userInfoService.query(userId);
-        log.info("返回参数 ----> {}", JSONObject.toJSONString(userVO));
-        return userVO;
+        Response<UserInfoDO> response = userInfoService.query(userId);
+        log.info("返回参数 ----> {}", JSONObject.toJSONString(response));
+        return response;
     }
 
-    @GetMapping("/test/123")
+    @GetMapping("/test")
     public String query() {
-        String d = "query";
-        return d;
-    }
-
-    @GetMapping("/test/12")
-    public UserInfoVO tt() {
-        UserInfoVO userVO = new UserInfoVO();
-        userVO.setPassword("123");
-        return userVO;
-    }
-
-    @GetMapping("/aba/14")
-    public Map<String, String> ttsss() {
-       Map<String, String> map = new HashMap<>();
-       map.put("key", "1232");
-        return map;
+        return "query";
     }
 }

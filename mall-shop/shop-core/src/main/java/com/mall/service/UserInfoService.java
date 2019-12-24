@@ -2,7 +2,9 @@ package com.mall.service;
 
 
 import com.github.pagehelper.Page;
-import com.mall.vo.UserInfoVO;
+import com.mall.dao.UserInfoDO;
+import com.mall.request.system.UserInfoRequest;
+import com.mall.web.response.Response;
 
 /**
  * <pre>
@@ -19,18 +21,18 @@ public interface UserInfoService {
      * @param record
      * @return
      */
-    int insert(UserInfoVO record);
+    Response<UserInfoDO> insert(UserInfoRequest record);
 
     /**
      * 查询用户
      * @param userId
      * @return
      */
-    UserInfoVO query(Integer userId);
+    Response<UserInfoDO> query(Integer userId);
 
     /**
      * 分页查询用户
      * @return
      */
-    Page<UserInfoVO> getUsers(int pageNum, int pageSize);
+    Response<Page<UserInfoDO>> getUserPage(int pageNum, int pageSize);
 }

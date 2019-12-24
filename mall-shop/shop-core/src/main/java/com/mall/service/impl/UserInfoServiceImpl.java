@@ -5,8 +5,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.mall.dao.UserInfoDO;
 import com.mall.mapper.UserInfoMapper;
+import com.mall.request.system.UserInfoRequest;
 import com.mall.service.UserInfoService;
-import com.mall.vo.UserInfoVO;
+import com.mall.util.ResponseUtil;
+import com.mall.web.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -29,30 +31,23 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoMapper userInfoMapper;
 
     @Override
-    public int insert(UserInfoVO record) {
-
+    public Response<UserInfoDO> insert(UserInfoRequest record) {
         UserInfoDO userInfoDO = new UserInfoDO();
         BeanUtils.copyProperties(record, userInfoDO);
-        return userInfoMapper.insert(userInfoDO);
+        userInfoMapper.insert(userInfoDO);
+        return ResponseUtil.change2Response(userInfoDO);
     }
 
     @Override
-    public UserInfoVO query(Integer userId) {
-
+    public Response<UserInfoDO> query(Integer userId) {
         UserInfoDO userInfoDO = userInfoMapper.selectByPrimaryKey(userId);
-        UserInfoVO userInfoVO = new UserInfoVO();
-        BeanUtils.copyProperties(userInfoDO, userInfoVO);
-        return userInfoVO;
+        return ResponseUtil.change2Response(userInfoDO);
     }
 
     @Override
-    public Page<UserInfoVO> getUsers(int pageNum, int pageSize) {
-
+    public Response<Page<UserInfoDO>> getUserPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         Page<UserInfoDO> userInfoDOPage = userInfoMapper.selectUserInfoWithPage();
-
-        Page<UserInfoVO> userInfoVOPage = new Page<>();
-        BeanUtils.copyProperties(userInfoDOPage, userInfoVOPage);
-        return userInfoVOPage;
+        return ResponseUtil.change2Response(userInfoDOPage);
     }
 }

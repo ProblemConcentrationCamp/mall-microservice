@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
         // customized exception
         if (exception instanceof BizException) {
             BizException bizException = (BizException)exception;
-            return ResponseUtil.change2Respnse(bizException.getMessage(),RespCodeEnum.CONDITIONS_NOT_MATCHED );
+            return ResponseUtil.change2Response(bizException.getMessage(),RespCodeEnum.CONDITIONS_NOT_MATCHED );
         }
 
         // unknown exception

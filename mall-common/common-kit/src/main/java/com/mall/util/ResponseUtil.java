@@ -3,8 +3,6 @@ package com.mall.util;
 import com.mall.web.constant.enums.RespCodeEnum;
 import com.mall.web.response.Response;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -18,30 +16,12 @@ import java.util.Objects;
 public class ResponseUtil {
 
     /**
-     * the key of response body content
-     */
-    private final static String DEFAULT_RESPONSE_STRING = "result";
-
-    /**
      * response without any body msg
      * @param respCodeEnum
      * @return
      */
-    public static Response<Object> change2Respnse(RespCodeEnum respCodeEnum) {
+    public static Response<Object> change2Response(RespCodeEnum respCodeEnum) {
         Response<Object> response = new Response(respCodeEnum);
-        return response;
-    }
-
-
-    /**
-     * response with the body
-     * @param data
-     * @param respCodeEnum
-     * @return
-     */
-    public static Response<Object> change2Respnse(Object data, RespCodeEnum respCodeEnum) {
-        Response<Object> response = new Response(respCodeEnum);
-        response.setBody(data);
         return response;
     }
 
@@ -50,48 +30,19 @@ public class ResponseUtil {
      * @param data
      * @return
      */
-    public static Response<Object> change2Response(Object data) {
-        Response<Object> response = new Response<>();
-        return responseBodyHandler(response, data);
+    public static <T> Response<T> change2Response(T data) {
+        return change2Response(data, RespCodeEnum.SUCCESS);
     }
 
     /**
-     * custom response code and message
+     * response with the body
      * @param data
      * @param respCodeEnum
      * @return
      */
-    public static Response<Object> change2Response(Object data, RespCodeEnum respCodeEnum) {
-        Response<Object> response = new Response<>(respCodeEnum);
-        return responseBodyHandler(response,data);
-    }
-
-    /**
-     * custom response code and message
-     * @param data
-     * @param code
-     * @param msg
-     * @return
-     */
-    public static Response<Object> change2Respnse(Object data, int code, String msg) {
-        Response<Object> response = new Response<>(code, msg, data);
-        return responseBodyHandler(response,data);
-    }
-
-    /**
-     * response body handler
-     * @param response
-     * @param data
-     * @return
-     */
-    private static Response<Object> responseBodyHandler(Response<Object> response, Object data) {
+    public static <T> Response<T> change2Response(T data, RespCodeEnum respCodeEnum) {
+        Response<T> response = new Response<>();
         if (Objects.isNull(data)) {
-            return response;
-        }
-        if (ClassUtil.isBaseType(data.getClass(), true)) {
-            Map<String, Object> map = new HashMap<>(2);
-            map.put(DEFAULT_RESPONSE_STRING, data);
-            response.setBody(map);
             return response;
         }
         response.setBody(data);

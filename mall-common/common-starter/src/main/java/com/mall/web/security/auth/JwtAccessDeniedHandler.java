@@ -28,7 +28,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        Response<Object> objectResponse = ResponseUtil.change2Respnse(RespCodeEnum.NO_PERMISSION);
+        Response<Object> objectResponse = ResponseUtil.change2Response(RespCodeEnum.NO_PERMISSION);
         response.getWriter().println(JSONObject.toJSONString(objectResponse));
     }
 }
