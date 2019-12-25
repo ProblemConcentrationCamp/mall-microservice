@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.support.atomic.RedisAtomicLong;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -20,8 +22,10 @@ import java.util.concurrent.TimeUnit;
  */
 
 @Slf4j
+@Component
 public class RedisUtil {
 
+    @Autowired
     private RedisTemplate redisTemplate;
 
     private ValueOperations<Serializable, Object> operations;
@@ -32,9 +36,11 @@ public class RedisUtil {
     /** redis中存放这个自增id的值的key*/
     private final static String COUNTER_KEY = "CounterKey";
 
-    @Autowired
-    public RedisUtil(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
+    public RedisUtil() {
+    }
+
+    @PostConstruct
+    public void initConfig(){
         this.operations = redisTemplate.opsForValue();
         this.counter = new RedisAtomicLong(COUNTER_KEY, redisTemplate.getConnectionFactory());
     }
@@ -111,8 +117,7 @@ public class RedisUtil {
      * @return
      */
     public Object get(final String key) {
-        Object result = result = operations.get(key);
-        return result;
+        return operations.get(key);
     }
 
     /**
@@ -120,7 +125,6 @@ public class RedisUtil {
      * @param key
      */
     public boolean remove(final String key) {
-
         if (exists(key)) {
             redisTemplate.delete(key);
         }
